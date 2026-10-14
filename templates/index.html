@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta de Chuvas — ANA</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header><div class="eyebrow">DADOS HIDROMETEOROLÓGICOS</div><h1>Consulta de Chuvas <span>ANA</span></h1><p>Consulte registros de precipitação por estação e período.</p></header>
+    <section class="panel">
+      <form id="form-consulta">
+        <div class="fields">
+          <label>Código da estação<input id="estacao" name="estacao" inputmode="numeric" placeholder="Ex.: 65060001" required pattern="[0-9]+"></label>
+          <label>Data inicial<input id="inicio" name="inicio" type="date" value="{{ inicio }}" required></label>
+          <label>Data final<input id="fim" name="fim" type="date" value="{{ hoje }}" required></label>
+        </div>
+        <div class="actions"><button id="consultar" type="submit">Consultar registros</button><button id="ver-bruto" class="secondary" type="button" disabled>Ver retorno bruto da API</button><button id="exportar" class="secondary" type="button" disabled>Exportar CSV</button></div>
+      </form>
+      <div id="status" class="status" role="status">Informe a estação e o período.</div>
+    </section>
+    <section class="panel results"><div class="results-head"><div><h2>Registros encontrados</h2><p>Os dados são exibidos conforme os campos reconhecidos no retorno da API.</p></div><span id="contador" class="counter">0 registros</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Código estação</th><th>Data/hora</th><th>Chuva (mm)</th></tr></thead><tbody id="corpo-tabela"><tr><td colspan="3" class="empty">Nenhuma consulta realizada.</td></tr></tbody></table></div>
+    </section>
+    <footer>Fonte dos dados: serviço web da Agência Nacional de Águas e Saneamento Básico (ANA).</footer>
+  </main>
+  <dialog id="dialog-bruto"><div class="dialog-head"><h2>Retorno bruto da API ANA</h2><button id="fechar-dialog" class="close" type="button" aria-label="Fechar">×</button></div><textarea id="texto-bruto" readonly spellcheck="false"></textarea><div class="dialog-actions"><button id="copiar-bruto" class="secondary" type="button">Copiar conteúdo</button><button id="fechar-dialog-2" class="secondary" type="button">Fechar</button></div></dialog>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
